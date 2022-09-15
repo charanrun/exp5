@@ -1,0 +1,155 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table db.empl(sno int(9),name varchar(20),designation varchar(20
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql>  create table db.empl(sno int(9),name varchar(20),designation varchar(20),branch varchar(20));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> insert into db.empl values(1,'ram','manager','chennai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into db.empl values(2,'santosh','supervisor','madurai');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into db.empl values(3,'hari','assistent','trichy');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from db.empl;
++------+---------+-------------+---------+
+| sno  | name    | designation | branch  |
++------+---------+-------------+---------+
+|    1 | ram     | manager     | chennai |
+|    2 | santosh | supervisor  | madurai |
+|    3 | hari    | assistent   | trichy  |
++------+---------+-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> describe db.empl;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sno         | int         | YES  |     | NULL    |       |
+| name        | varchar(20) | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
+| branch      | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table db.empl add column sal int(9);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from db.empl;
++------+---------+-------------+---------+------+
+| sno  | name    | designation | branch  | sal  |
++------+---------+-------------+---------+------+
+|    1 | ram     | manager     | chennai | NULL |
+|    2 | santosh | supervisor  | madurai | NULL |
+|    3 | hari    | assistent   | trichy  | NULL |
++------+---------+-------------+---------+------+
+3 rows in set (0.00 sec)
+
+mysql> alter table db.empl rename column branch to place;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from db.empl;
++------+---------+-------------+---------+------+
+| sno  | name    | designation | place   | sal  |
++------+---------+-------------+---------+------+
+|    1 | ram     | manager     | chennai | NULL |
+|    2 | santosh | supervisor  | madurai | NULL |
+|    3 | hari    | assistent   | trichy  | NULL |
++------+---------+-------------+---------+------+
+3 rows in set (0.00 sec)
+
+mysql> alter table db.empl rename to db.employe;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from db.empl;
+ERROR 1146 (42S02): Table 'db.empl' doesn't exist
+mysql> select * from db.employe;
++------+---------+-------------+---------+------+
+| sno  | name    | designation | place   | sal  |
++------+---------+-------------+---------+------+
+|    1 | ram     | manager     | chennai | NULL |
+|    2 | santosh | supervisor  | madurai | NULL |
+|    3 | hari    | assistent   | trichy  | NULL |
++------+---------+-------------+---------+------+
+3 rows in set (0.00 sec)
+
+mysql> delete from db.employe where sno='2';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from db.employe;
++------+------+-------------+---------+------+
+| sno  | name | designation | place   | sal  |
++------+------+-------------+---------+------+
+|    1 | ram  | manager     | chennai | NULL |
+|    3 | hari | assistent   | trichy  | NULL |
++------+------+-------------+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> drop table db.employe;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from db.employe;
+ERROR 1146 (42S02): Table 'db.employe' doesn't exist
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
