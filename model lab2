@@ -1,0 +1,124 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db                 |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table db.bank(sno int(9),custname varchar(20),balance int(9),cusbranch varchar(20));
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql> create table db.bank(sno int(9),custname varchar(20),accno int(9),balance int(9),cusbranch varchar(20));
+ERROR 1050 (42S01): Table 'bank' already exists
+mysql> create table db.bank1(sno int(9),custname varchar(20),accno int(9),balance int(9),cusbranch varchar(20));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> inser into db.bank1 values(1,'ramesh','sam',"1234567","100000",'adyar');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'inser into db.bank1 values(1,'ramesh','sam',"1234567","100000",'adyar')' at line 1
+mysql> insert into db.bank1 values(1,'ramesh','sam',"1234567","100000",'adyar');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into db.bank1 values(1,'ramesh','sam',"12345","10000",'adyar');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into db.bank1 values(1,'ramesh',"12345","10000",'adyar');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into db.bank1 values(2,'sam',"123895","15000",'myiapore');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into db.bank1 values(3,'harish',"1238998","150847",'annasalai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from db.bank1;
++------+----------+---------+---------+-----------+
+| sno  | custname | accno   | balance | cusbranch |
++------+----------+---------+---------+-----------+
+|    1 | ramesh   |   12345 |   10000 | adyar     |
+|    2 | sam      |  123895 |   15000 | myiapore  |
+|    3 | harish   | 1238998 |  150847 | annasalai |
++------+----------+---------+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> describe db.bank1;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| sno       | int         | YES  |     | NULL    |       |
+| custname  | varchar(20) | YES  |     | NULL    |       |
+| accno     | int         | YES  |     | NULL    |       |
+| balance   | int         | YES  |     | NULL    |       |
+| cusbranch | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select sno,custname,cusbranch from db.bank1;
++------+----------+-----------+
+| sno  | custname | cusbranch |
++------+----------+-----------+
+|    1 | ramesh   | adyar     |
+|    2 | sam      | myiapore  |
+|    3 | harish   | annasalai |
++------+----------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from db.bank1 where custname='sam';
++------+----------+--------+---------+-----------+
+| sno  | custname | accno  | balance | cusbranch |
++------+----------+--------+---------+-----------+
+|    2 | sam      | 123895 |   15000 | myiapore  |
++------+----------+--------+---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from db.bank1 where attribute > 10000;
+ERROR 1054 (42S22): Unknown column 'attribute' in 'where clause'
+mysql> select * from db.bank1 where balance>10000;
++------+----------+---------+---------+-----------+
+| sno  | custname | accno   | balance | cusbranch |
++------+----------+---------+---------+-----------+
+|    2 | sam      |  123895 |   15000 | myiapore  |
+|    3 | harish   | 1238998 |  150847 | annasalai |
++------+----------+---------+---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select balance from db.bank1 where balance between 10000 and 150847;
++---------+
+| balance |
++---------+
+|   10000 |
+|   15000 |
+|  150847 |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> alter table db.bank1 rename column cusbranch to saveetha;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from db.bank1;
++------+----------+---------+---------+-----------+
+| sno  | custname | accno   | balance | saveetha  |
++------+----------+---------+---------+-----------+
+|    1 | ramesh   |   12345 |   10000 | adyar     |
+|    2 | sam      |  123895 |   15000 | myiapore  |
+|    3 | harish   | 1238998 |  150847 | annasalai |
++------+----------+---------+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql>
